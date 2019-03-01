@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+
+source 'https://supermarket.chef.io'
+
+metadata
+
+specs = File.expand_path('spec/support/cookbooks', __dir__)
+if File.exist?(specs)
+  group :unit do
+    Dir.entries(specs).each do |d|
+      next if %w[. ..].include?(d)
+      cookbook d, path: File.join(specs, d)
+    end
+  end
+end
+
+fixtures = File.expand_path('test/fixtures/cookbooks', __dir__)
+if File.exist?(fixtures)
+  group :integration do
+    Dir.entries(fixtures).each do |d|
+      next if %w[. ..].include?(d)
+      cookbook d, path: File.join(fixtures, d)
+    end
+  end
+end
